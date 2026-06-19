@@ -1,0 +1,29 @@
+{# templates/hello-card.html.twig #}
+
+<div class="w-full max-w-4xl mx-auto my-8 p-8 sm:p-12 bg-slate-900 border border-slate-800 rounded-2xl text-left relative overflow-hidden shadow-xl">
+  
+  {# Subtle Ambient Background Glow #}
+  <div class="absolute -top-24 -left-20 w-72 h-72 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  {# Premium Small Intro Tag #}
+  <div class="inline-flex items-center gap-2 px-3 py-1.5 mb-6 text-xs font-semibold tracking-wider uppercase bg-slate-950 border border-slate-800 text-rose-400 rounded-full shadow-inner">
+    <span class="flex h-2 w-2 relative">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+    </span>
+    Available for Projects
+  </div>
+
+  {# Solid, High-Contrast Headline (No transparency tricks) #}
+  <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
+    {{ name }}
+  </h1>
+
+  {# High-Contrast Sub-headline #}
+  {% if message %}
+    <p class="text-lg sm:text-xl font-medium text-slate-300 leading-relaxed max-w-2xl">
+      {{ message }}
+    </p>
+  {% endif %}
+
+</div>

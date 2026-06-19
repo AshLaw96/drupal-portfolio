@@ -1,0 +1,118 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for hello_world module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function hello_world_theme($existing, $type, $theme, $path) {
+  return [
+    'hello_card' => [
+      'variables' => ['name' => NULL, 'message' => NULL],
+    ],
+    'profile_card' => [
+      'variables' => [
+        'title' => NULL,
+        'body' => NULL,
+        'icon' => NULL,
+      ],
+    ],
+    'project_card' => [
+      'variables' => [
+        'title' => NULL,
+        'body' => NULL,
+        'image' => NULL,
+        'tags' => NULL,
+        'demo_url' => NULL,
+        'github_url' => NULL,
+      ],
+    ],
+    'tech_tracker' => [
+      'variables' => [
+        'headline' => NULL,
+        'categories' => NULL,
+      ],
+    ],
+    'testimonials' => [
+      'variables' => [
+        'endorsements' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_views_view_fields().
+ */
+function hello_world_preprocess_views_view_fields(&$variables) {
+  $view_id = $variables['view']->id();
+  $row = $variables['row'];
+
+  // CONTROLLER BLOCK 1: Profile Grid (Services)
+  if ($view_id === 'profile_grid') {
+    $node = $row->_entity;
+    if ($node && isset($node->field_icon_html->value)) {
+
+      // Clean up the text input to look for the asset filename.
+      $icon_name = strip_tags(trim($node->field_icon_html->value));
+
+      // Build the file path to load the SVG file from your hard drive.
+      $module_path = \Drupal::service('extension.list.module')->getPath('hello_world');
+      $file_path = \Drupal::root() . '/' . $module_path . '/assets/icons/' . $icon_name . '.svg';
+
+      $svg_content = '';
+      if (file_exists($file_path)) {
+        $svg_content = file_get_contents($file_path);
+      }
+
+      $title = $node->label();
+      $body = $node->field_body->value ?? '';
+
+      // Force Drupal to override field wrapper with layout template variables.
+      $variables['fields']['field_icon_html']->content = [
+        '#theme' => 'profile_card',
+        '#title' => $title,
+        '#body' => $body,
+        '#icon' => [
+          '#markup' => $svg_content,
+          '#allowed_tags' => ['svg', 'path', 'g', 'circle', 'rect', 'polyline', 'polygon'],
+        ],
+      ];
+    }
+  }
+
+  // CONTROLLER BLOCK 2: Project Showcase.
+  if ($view_id === 'project_showcase') {
+    $node = $row->_entity;
+    if ($node && $node->bundle() === 'project') {
+      $title = $node->label();
+
+      // Target body dynamically based on Drupal config.
+      $body = $node->body->value ?? $node->field_project_body->value ?? '';
+
+      $tags_string = $node->field_tech_stack_tags->value ?? '';
+      $tags_array = array_filter(array_map('trim', explode(',', $tags_string)));
+
+      $image_url = '';
+      if (!$node->field_project_image->isEmpty() && $node->field_project_image->entity) {
+        $image_url = \Drupal::service('file_url_generator')->generateString($node->field_project_image->entity->getFileUri());
+      }
+
+      $demo_url = !$node->field_live_demo_link->isEmpty() ? $node->field_live_demo_link->uri : '';
+      $github_url = !$node->field_github_link->isEmpty() ? $node->field_github_link->uri : '';
+
+      $variables['fields']['title']->content = [
+        '#theme' => 'project_card',
+        '#title' => $title,
+        '#body' => $body,
+        '#image' => $image_url,
+        '#tags' => $tags_array,
+        '#demo_url' => $demo_url,
+        '#github_url' => $github_url,
+      ];
+    }
+  }
+}

@@ -1,0 +1,10 @@
+hello_world.settings:
+  type: mapping
+  label: 'Hello World custom settings configuration maps'
+  mapping:
+    card_title:
+      type: label
+      label: 'Card Headline Title'
+    custom_message:
+      type: text
+      label: 'Card Sub-text Body'

@@ -1,0 +1,58 @@
+{# templates/testimonials.html.twig #}
+<div class="my-24 w-full max-w-6xl mx-auto px-4">
+  
+  {# Header #}
+  <div class="mb-12 text-center md:text-left">
+    <span class="text-xs font-bold uppercase tracking-widest text-rose-500 bg-rose-500/10 px-3 py-1 rounded-full border border-rose-500/20">
+      Endorsements
+    </span>
+    <h2 class="text-3xl font-extrabold text-white tracking-tight mt-3">
+      Community Feedback
+    </h2>
+    <p class="text-slate-400 text-sm mt-2 max-w-xl">
+      Real reactions and peer reviews taken from my public LinkedIn engineering project updates.
+    </p>
+  </div>
+
+  {# Feedback Grid #}
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {% for quote in endorsements %}
+      <div class="flex flex-col p-6 bg-slate-900 rounded-xl border border-slate-800 relative group transition-all duration-300 hover:border-slate-700/60">
+        
+        {# Decorative Quote Icon #}
+        <div class="absolute top-4 right-6 text-slate-800 text-5xl font-serif select-none pointer-events-none transition-colors group-hover:text-rose-900/20">
+          &ldquo;
+        </div>
+
+        {# The Review Context Badge #}
+        <div class="mb-4">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400 bg-rose-400/5 px-2 py-0.5 rounded border border-rose-500/10">
+            {{ quote.context }}
+          </span>
+        </div>
+
+        {# Body Prose #}
+        <p class="text-slate-300 text-xs leading-relaxed font-medium italic mb-6 flex-1">
+          "{{ quote.text }}"
+        </p>
+
+        {# User Footer Identity #}
+        <div class="flex items-center gap-3 pt-4 border-t border-slate-800/60 mt-auto min-w-0">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-rose-500/20 to-slate-800 border border-rose-500/30 flex items-center justify-center font-bold text-xs text-rose-400 uppercase select-none flex-shrink-0">
+            {{ quote.initials }}
+          </div>
+          <div class="min-w-0 flex-1">
+            <h4 class="text-xs font-bold text-white tracking-tight truncate">
+              {{ quote.author }}
+            </h4>
+            <p class="text-[11px] text-slate-500 font-medium break-words leading-tight mt-0.5">
+              {{ quote.role }}
+            </p>
+          </div>
+        </div>
+
+      </div>
+    {% endfor %}
+  </div>
+
+</div>

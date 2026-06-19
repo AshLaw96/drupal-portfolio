@@ -1,0 +1,18 @@
+# Ignore huge core dependencies
+/vendor/
+/web/core/
+
+# Ignore JavaScript compiled dependencies
+**/node_modules/
+
+# Ignore local DDEV assets
+/.ddev/
+/.vscode/
+
+# Ignore massive accidental archives & backups
+*.zip
+*.gz
+
+# Ignore simple temporary dynamic site files 
+/web/sites/default/files/
+/web/sites/default/settings.local.php

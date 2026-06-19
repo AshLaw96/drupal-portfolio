@@ -1,0 +1,60 @@
+{# templates/tech-tracker.html.twig #}
+<div class="my-20 w-full max-w-6xl mx-auto px-4">
+  
+  {# Header Section #}
+  <div class="mb-12 text-center md:text-left">
+    <span class="text-xs font-bold uppercase tracking-widest text-rose-500 bg-rose-500/10 px-3 py-1 rounded-full border border-rose-500/20">
+      Toolkit
+    </span>
+    <h2 class="text-3xl font-extrabold text-white tracking-tight mt-3">
+      {{ headline }}
+    </h2>
+    <p class="text-slate-400 text-sm mt-2 max-w-2xl">
+      A consolidated blueprint of the languages, frameworks, cloud infrastructures and development pipelines I engineer apps with.
+    </p>
+  </div>
+
+  {# Main Categories Loop #}
+  <div class="flex flex-col gap-12">
+    {% for key, category in categories %}
+      <div>
+        
+        {# Category Subtitle Divider #}
+        <div class="flex items-center gap-4 mb-6">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 whitespace-nowrap">
+            {{ category.title }}
+          </h3>
+          <div class="w-full h-px bg-slate-800/60"></div>
+        </div>
+
+        {# Inner Skill Responsive Matrix #}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {% for skill in category.items %}
+            <div class="group relative flex flex-col p-5 bg-slate-900 rounded-xl border border-slate-800 transition-all duration-300 hover:-translate-y-1 hover:border-rose-500/30 hover:shadow-[0_0_25px_rgba(244,63,94,0.06)]">
+              
+              {# Tech Icon Vector #}
+              {% if skill.icon %}
+                <div class="w-7 h-7 text-rose-400 mb-3 block flex-shrink-0 transition-colors duration-300 group-hover:text-rose-300">
+                  {{ skill.icon|raw }}
+                </div>
+              {% endif %}
+
+              {# Title #}
+              <h4 class="text-base font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-rose-400">
+                {{ skill.name }}
+              </h4>
+
+              {# Description Description #}
+              <p class="text-slate-400 text-xs mt-1 leading-relaxed font-medium">
+                {{ skill.desc }}
+              </p>
+
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    {% endfor %}
+  </div>
+
+</div>

@@ -1,0 +1,5 @@
+name: 'Hello World Custom Module'
+type: module
+description: 'Our first custom Drupal page built with PHP code.'
+package: Custom
+core_version_requirement: ^10 || ^11

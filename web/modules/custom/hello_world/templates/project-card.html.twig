@@ -1,0 +1,62 @@
+{# templates/project-card.html.twig #}
+
+<div class="w-full max-w-3xl mx-auto mb-8 flex flex-col h-full bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group transition-all duration-300 hover:scale-[1.01] hover:border-rose-500/30 text-left">
+  
+  {# 1. Project Image #}
+  {% if image %}
+    <div class="relative h-52 sm:h-72 overflow-hidden bg-slate-950 w-full flex-shrink-0">
+      <img src="{{ image }}" alt="{{ title }}" class="w-full h-full object-cover transition-transform duration-500 transform group-hover:scale-105">
+    </div>
+  {% endif %}
+
+  {# Card Content Inner Wrapper #}
+  <div class="flex flex-col flex-1 p-6 min-w-0 w-full">
+    
+    {# 2. Tech Stack Tags #}
+    {% if tags is not empty %}
+      <div class="flex flex-wrap gap-1.5 mb-3 w-full items-center">
+        {% for tag in tags %}
+          <span class="px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase bg-slate-800 text-rose-400 border border-slate-700 rounded-md break-all">
+            {{ tag }}
+          </span>
+        {% endfor %}
+      </div>
+    {% endif %}
+    
+    {# 3. Project Title #}
+    <h3 class="text-2xl font-extrabold text-white tracking-tight break-words">
+      {{ title }}
+    </h3>
+
+    {# 4. Project Description Paragraph #}
+    {% if body %}
+      <div class="text-slate-400 text-base leading-relaxed font-medium mt-2 mb-6 break-words">
+        {{ body|raw }}
+      </div>
+    {% endif %}
+
+    {# 5. Responsive Action Buttons (Icons on Mobile, Text + Icons on Desktop) #}
+    <div class="mt-auto flex flex-row gap-3 w-full">
+      
+      {% if demo_url %}
+        <a href="{{ demo_url }}" target="_blank" rel="noopener" aria-label="Live Demo" class="inline-flex items-center justify-center p-3 sm:px-5 sm:py-3 text-sm font-bold text-white bg-rose-600 hover:bg-rose-500 rounded-xl transition-colors duration-200 shadow-sm leading-none gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 flex-shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+          </svg>
+          <span class="hidden sm:inline">Live Demo</span>
+        </a>
+      {% endif %}
+
+      {% if github_url %}
+        <a href="{{ github_url }}" target="_blank" rel="noopener" aria-label="GitHub Code" class="inline-flex items-center justify-center p-3 sm:px-5 sm:py-3 text-sm font-bold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition-colors duration-200 border border-slate-700/60 leading-none gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 flex-shrink-0">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.53 1.03 1.53 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+          </svg>
+          <span class="hidden sm:inline">GitHub Code</span>
+        </a>
+      {% endif %}
+
+    </div>
+
+  </div>
+</div>

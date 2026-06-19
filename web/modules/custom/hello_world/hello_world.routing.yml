@@ -1,0 +1,15 @@
+hello_world.my_page:
+  path: '/hello/{name}'
+  defaults:
+    _controller: '\Drupal\hello_world\Controller\HelloController::viewPage'
+    _title: 'Welcome to My Dynamic Page'
+  requirements:
+    _permission: 'access content'
+
+hello_world.settings:
+  path: '/admin/config/services/hello-world'
+  defaults:
+    _form: '\Drupal\hello_world\Form\SettingsForm'
+    _title: 'Hello World Settings'
+  requirements:
+    _permission: 'administer site configuration'
